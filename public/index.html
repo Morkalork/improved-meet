@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Assignment</title>
+    <style type="text/css">
+      html,
+      body {
+        background-color: #eaeaea;
+        min-height: 100%;
+      }
+      #content {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 100%;
+      }
+
+      #content .box {
+        margin: 1rem;
+        padding: 1rem;
+        box-shadow: 0 0 1rem #333;
+        background-color: #fff;
+        border-radius: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script>
+      const content = document.getElementById('content');
+      fetch('/ninja/all')
+        .then(result => result.json())
+        .then(ninjas => {
+          ninjas.forEach(ninja => {
+            const box = document.createElement('div');
+            box.classList.add('box');
+
+            const title = document.createElement('h3');
+            title.innerText = ninja.name;
+            box.appendChild(title);
+
+            const image = document.createElement('img');
+            image.setAttribute('src', ninja.imageUrl);
+            box.appendChild(image);
+
+            content.appendChild(box);
+          });
+        });
+    </script>
+  </body>
+</html>
